@@ -24,11 +24,10 @@ export class AppComponent implements OnInit {
       resolution: 1,       // default: 1
       forceCanvas: true,
     });
-    document.body.appendChild(this.app.view);
+
+    document.querySelector('#pixi').appendChild(this.app.view);
     this.app.renderer.backgroundColor = 0x0616ff;
     this.resize(window.innerWidth, window.innerHeight);
-
-    const circle = ControlPoint.create(this.app, 100, 100);
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
@@ -42,5 +41,10 @@ export class AppComponent implements OnInit {
   resize(width, height) {
     console.log(width, height);
     this.app.renderer.resize(width, height);
+  }
+
+  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+  onAddClick() {
+    const circle = ControlPoint.create(this.app, 100, 100);
   }
 }
