@@ -1,7 +1,14 @@
 
 import * as PIXI from 'pixi.js';
 
-export class ControlPoint {
+// 拖曳教學
+// http://scottmcdonnell.github.io/pixi-examples/index.html?s=demos&f=dragging.js&title=Dragging
+export class ControlPoint extends PIXI.Sprite {
+
+  dragging = false;
+  data: PIXI.InteractionData;
+
+  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
   static texture(
     app: PIXI.Application,
@@ -18,68 +25,61 @@ export class ControlPoint {
     return app.renderer.generateTexture(graphic, PIXI.SCALE_MODES.LINEAR, 5);
   }
 
-  // 拖曳教學
-  // http://scottmcdonnell.github.io/pixi-examples/index.html?s=demos&f=dragging.js&title=Dragging
-  static create(
+  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+
+  constructor(
     app: PIXI.Application,
     x: number = 0,
     y: number = 0,
     radius: number = 5,
     color: number = 0xFFFFFF,
   ) {
+    // const texture = ;
+    super(ControlPoint.texture(app, radius, color));
 
-    const texture = ControlPoint.texture(app, radius, color);
-    const circle = new PIXI.Sprite(texture);
+    this.interactive = true;
+    this.buttonMode = true;
+    this.anchor.set(0.5);
+    this.scale.set(1);
 
-    circle.interactive = true;
-    circle.buttonMode = true;
-    circle.anchor.set(0.5);
-    circle.scale.set(1);
-
-    circle
+    this
       // events for drag start
-      .on('mousedown', onDragStart)
-      .on('touchstart', onDragStart)
+      .on('mousedown', this.onDragStart)
+      .on('touchstart', this.onDragStart)
       // events for drag end
-      .on('mouseup', onDragEnd)
-      .on('mouseupoutside', onDragEnd)
-      .on('touchend', onDragEnd)
-      .on('touchendoutside', onDragEnd)
+      .on('mouseup', this.onDragEnd)
+      .on('mouseupoutside', this.onDragEnd)
+      .on('touchend', this.onDragEnd)
+      .on('touchendoutside', this.onDragEnd)
       // events for drag move
-      .on('mousemove', onDragMove)
-      .on('touchmove', onDragMove);
+      .on('mousemove', this.onDragMove)
+      .on('touchmove', this.onDragMove);
 
-    app.stage.addChild(circle);
-    circle.x = x;
-    circle.y = y;
-
-    return circle;
+    app.stage.addChild(this);
+    this.x = x;
+    this.y = y;
   }
 
-}
-
-function onDragStart(event) {
-  // store a reference to the data
-  // the reason for this is because of multitouch
-  // we want to track the movement of this particular touch
-  this.data = event.data;
-  this.alpha = 0.5;
-  this.dragging = true;
-}
-
-function onDragEnd() {
-  this.alpha = 1;
-
-  this.dragging = false;
-
-  // set the interaction data to null
-  this.data = null;
-}
-
-function onDragMove() {
-  if (this.dragging) {
-    const newPosition = this.data.getLocalPosition(this.parent);
-    this.position.x = newPosition.x;
-    this.position.y = newPosition.y;
+  onDragStart = (event) => {
+    this.data = event.data;
+    this.alpha = 0.5;
+    this.dragging = true;
   }
+
+  onDragEnd = () => {
+    this.data = null;
+    this.alpha = 1;
+    this.dragging = false;
+  }
+
+  onDragMove() {
+    if (this.dragging) {
+      const newPosition = this.data.getLocalPosition(this.parent);
+      this.position.x = newPosition.x;
+      this.position.y = newPosition.y;
+    }
+  }
+
+  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+
 }
