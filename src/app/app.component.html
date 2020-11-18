@@ -2,8 +2,9 @@
 
 <img src="https://deco.housefun.com.tw/Article_OldUploadCT/%E5%B9%B3%E9%9D%A2%E5%9C%96.jpg" style="width: 800px;">
 <div style="width: 100%; height: 100%; position: fixed; left: 0px; top: 0px;">
-  <div *ngFor="let controlPoint of controlCenter.controlPointArr">
-    x:{{controlPoint.x}}_y:{{controlPoint.y}}
+  <div *ngFor="let controlPoint of controlCenter.controlPointArr; let i = index;">
+    #{{i}}_x:{{controlPoint.x}}_y:{{controlPoint.y}}
+    <h2 [ngStyle]="{position: 'fixed', left: controlPoint.x + 'px', top: (controlPoint.y - 20) + 'px'}">#{{i}}</h2>
   </div>
 </div>
 
