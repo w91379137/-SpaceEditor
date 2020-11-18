@@ -9,13 +9,13 @@ import { ControlCenterService } from './service/control-center/control-center.se
 export class AppComponent {
 
   constructor(
-    private controlCenter: ControlCenterService,
+    public controlCenter: ControlCenterService,
   ) {
 
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
-  
+
   onAddClick() {
     this.controlCenter.onAddClickSubject.next();
   }

@@ -53,5 +53,6 @@ export class PixiViewComponent implements OnInit {
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
   onAddClick() {
     const circle = new ControlPoint(this.app, 100, 100, 10, 0x333333);
+    this.controlCenter.controlPointArr.push(circle);
   }
 }
