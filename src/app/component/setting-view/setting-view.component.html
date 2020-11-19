@@ -1,0 +1,11 @@
+<button (click)="onAddClick()" style="position: fixed; left: 0px; bottom: 0px;">add
+</button>
+
+<input type="checkbox" [(ngModel)]="podcastCenter.openCreate" style="position: fixed; left: 40px; bottom: 0px;">
+<input type="text" placeholder="createApiURL" [(ngModel)]="podcastCenter.createApiURL" style="position: fixed; left: 60px; bottom: 0px; width: 200px;">
+
+<input type="checkbox" [(ngModel)]="podcastCenter.openUpdate" style="position: fixed; left: 290px; bottom: 0px;">
+<input type="text" placeholder="updateApiURL" [(ngModel)]="podcastCenter.updateApiURL" style="position: fixed; left: 310px; bottom: 0px; width: 200px;">
+
+<input type="checkbox" [(ngModel)]="controlCenter.openIframe" style="position: fixed; left: 540px; bottom: 0px;">
+<input type="text" placeholder="iframeURL" [(ngModel)]="controlCenter.iframeURL" style="position: fixed; left: 560px; bottom: 0px; width: 200px;">

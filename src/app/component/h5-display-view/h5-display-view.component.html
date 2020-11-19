@@ -1,0 +1,5 @@
+
+<div *ngFor="let controlPoint of controlCenter.controlPointArr; let i = index;">
+  #{{i}}_x:{{controlPoint.x}}_y:{{controlPoint.y}}
+  <h2 [ngStyle]="{position: 'fixed', left: controlPoint.x + 'px', top: (controlPoint.y - 20) + 'px'}">#{{i}}</h2>
+</div>
