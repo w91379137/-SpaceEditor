@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ControlCenterService } from './service/control-center/control-center.service';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +7,7 @@ import { ControlCenterService } from './service/control-center/control-center.se
 })
 export class AppComponent {
 
-  constructor(
-    private controlCenter: ControlCenterService,
-  ) {
+  constructor() {
 
-  }
-
-  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
-
-  onAddClick() {
-    this.controlCenter.onAddClickSubject.next();
   }
 }
