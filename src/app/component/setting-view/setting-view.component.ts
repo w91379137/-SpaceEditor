@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlCenterService } from 'src/app/service/control-center/control-center.service';
+import { PodcastCenterService } from '../../service/podcast-center/podcast-center.service';
 
 @Component({
   selector: 'app-setting-view',
@@ -12,6 +13,7 @@ export class SettingViewComponent implements OnInit {
 
   constructor(
     private controlCenter: ControlCenterService,
+    public podcastCenter: PodcastCenterService,
   ) { }
 
   ngOnInit() {

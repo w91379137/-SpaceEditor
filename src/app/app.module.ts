@@ -8,6 +8,10 @@ import { PixiControlViewComponent } from './component/pixi-control-view/pixi-con
 import { H5DisplayViewComponent } from './component/h5-display-view/h5-display-view.component';
 import { SettingViewComponent } from './component/setting-view/setting-view.component';
 import { PodcastCenterService } from './service/podcast-center/podcast-center.service';
+import { ApiService } from './service/api/api.service';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -19,10 +23,13 @@ import { PodcastCenterService } from './service/podcast-center/podcast-center.se
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [
     ControlCenterService,
     PodcastCenterService,
+    ApiService,
   ],
   bootstrap: [
     AppComponent,

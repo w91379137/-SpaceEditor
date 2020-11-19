@@ -67,4 +67,14 @@ export class ControlPoint {
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+
+  date() {
+    return {
+      uuid: this.uuid,
+      x: this.x,
+      y: this.y,
+      radius: this.radius,
+      color: this.color,
+    };
+  }
 }
