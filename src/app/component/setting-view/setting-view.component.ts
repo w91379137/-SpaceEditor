@@ -12,7 +12,7 @@ export class SettingViewComponent implements OnInit {
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
   constructor(
-    private controlCenter: ControlCenterService,
+    public controlCenter: ControlCenterService,
     public podcastCenter: PodcastCenterService,
   ) { }
 

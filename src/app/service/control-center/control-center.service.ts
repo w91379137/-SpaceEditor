@@ -7,6 +7,9 @@ import { ControlPoint, ControlPointData, ControlPointDefaultData } from './contr
 })
 export class ControlCenterService {
 
+  iframeURL = '';
+  openIframe = false;
+
   readonly beforeAddControlPointSubject = new Subject<ControlPointData>();
   readonly controlPointArr: ControlPoint[] = [];
   readonly afterAddControlPointSubject = new Subject<ControlPoint>();

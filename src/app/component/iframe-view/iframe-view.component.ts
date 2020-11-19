@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ControlCenterService } from 'src/app/service/control-center/control-center.service';
 
 @Component({
   selector: 'app-iframe-view',
@@ -8,22 +9,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class IframeViewComponent implements OnInit {
 
-  isShow = false;
-
-  private purl = '';
-  set url(value: string) {
-    this.purl = value;
-    this.transform(value);
-  }
-  get url() {
-    return this.purl;
-  }
-
+  lastURL = '';
   securityURL: any;
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
   constructor(
+    public controlCenter: ControlCenterService,
     private sanitizer: DomSanitizer,
   ) {
 
@@ -34,9 +26,13 @@ export class IframeViewComponent implements OnInit {
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+  // https://stackoverflow.com/questions/39429293/url-sanitization-is-causing-refresh-of-the-embedded-youtube-video
+  get checkURL() {
 
-  transform(url) {
-    this.securityURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    if (this.lastURL !== this.controlCenter.iframeURL) {
+      this.securityURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.controlCenter.iframeURL);
+      this.lastURL = this.controlCenter.iframeURL;
+    }
+    return true;
   }
-
 }
