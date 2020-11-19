@@ -11,6 +11,7 @@ import { PodcastCenterService } from './service/podcast-center/podcast-center.se
 import { ApiService } from './service/api/api.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { IframeViewComponent } from './component/iframe-view/iframe-view.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     PixiControlViewComponent,
     H5DisplayViewComponent,
     SettingViewComponent,
+    IframeViewComponent,
   ],
   imports: [
     BrowserModule,
