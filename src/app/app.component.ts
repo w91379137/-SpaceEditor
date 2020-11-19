@@ -9,7 +9,7 @@ import { ControlCenterService } from './service/control-center/control-center.se
 export class AppComponent {
 
   constructor(
-    public controlCenter: ControlCenterService,
+    private controlCenter: ControlCenterService,
   ) {
 
   }
