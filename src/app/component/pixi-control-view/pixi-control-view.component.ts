@@ -53,6 +53,10 @@ export class PixiControlViewComponent implements OnInit {
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
   onAddPoint(point: ControlPoint) {
-    const circle = new PIXIControlPoint(this.app, 100, 100, 10, 0x333333);
+    const pixiPoint = new PIXIControlPoint(this.app, point.x, point.y, point.radius, point.color);
+    pixiPoint.updateSubject.subscribe((_) => {
+      point.x = pixiPoint.x;
+      point.y = pixiPoint.y;
+    });
   }
 }

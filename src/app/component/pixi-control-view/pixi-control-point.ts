@@ -1,5 +1,6 @@
 
 import * as PIXI from 'pixi.js';
+import { Subject } from 'rxjs';
 
 // 拖曳教學
 // http://scottmcdonnell.github.io/pixi-examples/index.html?s=demos&f=dragging.js&title=Dragging
@@ -7,6 +8,8 @@ export class PIXIControlPoint extends PIXI.Sprite {
 
   dragging = false;
   data: PIXI.InteractionData;
+
+  readonly updateSubject = new Subject<PIXIControlPoint>();
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
@@ -77,6 +80,7 @@ export class PIXIControlPoint extends PIXI.Sprite {
       const newPosition = this.data.getLocalPosition(this.parent);
       this.position.x = newPosition.x;
       this.position.y = newPosition.y;
+      this.updateSubject.next(this);
     }
   }
 
