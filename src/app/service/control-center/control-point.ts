@@ -1,9 +1,11 @@
+import { Subject } from 'rxjs';
 
 let uuidCounter = 0;
 
 function getUUID() {
+  const id = 'ControlPoint_' + uuidCounter;
   uuidCounter++;
-  return '' + uuidCounter;
+  return id;
 }
 
 export const ControlPointDefaultData = {
@@ -25,10 +27,29 @@ export class ControlPoint {
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
   uuid = '';
-  x = 0;
-  y = 0;
+
+  private privatex = 0;
+  set x(value: number) {
+    this.privatex = value;
+    this.updateSubject.next(this);
+  }
+  get x() {
+    return this.privatex;
+  }
+
+  private privatey = 0;
+  set y(value: number) {
+    this.privatey = value;
+    this.updateSubject.next(this);
+  }
+  get y() {
+    return this.privatey;
+  }
+
   radius = 5;
   color = 0xFFFFFF;
+
+  readonly updateSubject = new Subject<ControlPoint>();
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
@@ -44,4 +65,6 @@ export class ControlPoint {
     this.radius = radius;
     this.color = color;
   }
+
+  // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 }

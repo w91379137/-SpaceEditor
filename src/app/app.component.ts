@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PodcastCenterService } from './service/podcast-center/podcast-center.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(
+    private podcastCenter: PodcastCenterService,
+  ) {
 
   }
 }

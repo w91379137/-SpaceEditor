@@ -7,6 +7,7 @@ import { ControlCenterService } from './service/control-center/control-center.se
 import { PixiControlViewComponent } from './component/pixi-control-view/pixi-control-view.component';
 import { H5DisplayViewComponent } from './component/h5-display-view/h5-display-view.component';
 import { SettingViewComponent } from './component/setting-view/setting-view.component';
+import { PodcastCenterService } from './service/podcast-center/podcast-center.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SettingViewComponent } from './component/setting-view/setting-view.comp
   ],
   providers: [
     ControlCenterService,
+    PodcastCenterService,
   ],
   bootstrap: [
     AppComponent,
