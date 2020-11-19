@@ -1,7 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ControlCenterService } from 'src/app/service/control-center/control-center.service';
-import { ControlPoint } from 'src/class/control-point';
+import { PIXIControlPoint } from 'src/app/component/pixi-control-view/pixi-control-point';
 import * as PIXI from 'pixi.js';
+import { ControlPoint } from '../../service/control-center/control-point';
 
 @Component({
   selector: 'app-pixi-control-view',
@@ -17,8 +18,8 @@ export class PixiControlViewComponent implements OnInit {
   constructor(
     private controlCenter: ControlCenterService,
   ) {
-    this.controlCenter.onAddClickSubject.subscribe(() => {
-      this.onAddClick();
+    this.controlCenter.afterAddControlPointSubject.subscribe((point) => {
+      this.onAddPoint(point);
     });
   }
 
@@ -51,8 +52,7 @@ export class PixiControlViewComponent implements OnInit {
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
-  onAddClick() {
-    const circle = new ControlPoint(this.app, 100, 100, 10, 0x333333);
-    this.controlCenter.controlPointArr.push(circle);
+  onAddPoint(point: ControlPoint) {
+    const circle = new PIXIControlPoint(this.app, 100, 100, 10, 0x333333);
   }
 }

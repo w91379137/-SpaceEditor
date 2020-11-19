@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 
 // 拖曳教學
 // http://scottmcdonnell.github.io/pixi-examples/index.html?s=demos&f=dragging.js&title=Dragging
-export class ControlPoint extends PIXI.Sprite {
+export class PIXIControlPoint extends PIXI.Sprite {
 
   dragging = false;
   data: PIXI.InteractionData;
@@ -35,7 +35,7 @@ export class ControlPoint extends PIXI.Sprite {
     color: number = 0xFFFFFF,
   ) {
     // const texture = ;
-    super(ControlPoint.texture(app, radius, color));
+    super(PIXIControlPoint.texture(app, radius, color));
 
     this.interactive = true;
     this.buttonMode = true;

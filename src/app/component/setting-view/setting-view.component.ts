@@ -21,7 +21,6 @@ export class SettingViewComponent implements OnInit {
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
   onAddClick() {
-    this.controlCenter.onAddClickSubject.next();
+    this.controlCenter.beforeAddControlPointSubject.next();
   }
-
 }
