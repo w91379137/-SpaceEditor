@@ -36,6 +36,49 @@ export class PixiControlViewComponent implements OnInit {
 
     document.querySelector('#pixi').appendChild(this.app.view);
     this.resize(window.innerWidth, window.innerHeight);
+
+    this.test();
+  }
+
+  async test() {
+    // 測試
+
+    const mainContainer = new PIXI.Container();
+    mainContainer.x = 256;
+    mainContainer.y = 256;
+
+    const triangleContainer = new PIXI.Container();
+    mainContainer.addChild(triangleContainer);
+
+    const radius = 530;
+    const triangleMask = new PIXI.Graphics();
+    triangleMask.beginFill(0xffffff, .3);
+    triangleMask.moveTo(0, 0);
+    triangleMask.lineTo(Math.cos(60 * (-.5) * (Math.PI / 180)) * radius, Math.sin(60 * (-.5) * (Math.PI / 180)) * radius);
+    triangleMask.lineTo(Math.cos(60 * (.5) * (Math.PI / 180)) * radius, Math.sin(60 * (.5) * (Math.PI / 180)) * radius);
+    triangleMask.lineTo(0, 0);
+    triangleMask.endFill();
+    // mainContainer.addChild(triangleMask);
+
+    const texture = await PIXI.Texture.fromURL('https://upload.wikimedia.org/wikipedia/commons/b/bc/T_albidum01.jpg');
+    const flower = new PIXI.Sprite(texture);
+    triangleContainer.addChild(flower);
+    flower.anchor.set(0.5);
+
+    // flower.rotation = -30 * (Math.PI / 180); // from 63 * -.5
+    flower.x = 0;
+    flower.y = 0;
+    let x = 0;
+    this.app.ticker.add((delta) => {
+      flower.rotation += 0.03 * delta;
+      x =  (x + 3 * delta) % 256;
+      flower.x = x;
+    });
+    flower.scale.y = -1; // 上下顛倒
+
+    triangleContainer.mask = triangleMask;
+
+    this.app.stage.addChild(mainContainer);
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
