@@ -84,6 +84,21 @@ export class PixiControlViewComponent implements OnInit {
         mainContainer.addChild(triangleContainer);
       }
     }
+    {
+      // const index = 0;
+      for (let index = 0; index < 3; index++) {
+        const triangleContainer = await this.addOneTriangle(radius);
+
+        const thetaR = -120;
+        triangleContainer.rotation = thetaR * (Math.PI / 180);
+
+        const thetaC = 60 - 120 * index;
+        triangleContainer.x = Math.cos(thetaC * (Math.PI / 180)) * radius * Math.sqrt(3);
+        triangleContainer.y = Math.sin(thetaC * (Math.PI / 180)) * radius * Math.sqrt(3);
+
+        mainContainer.addChild(triangleContainer);
+      }
+    }
   }
 
   async addOneTriangle(radius) {
