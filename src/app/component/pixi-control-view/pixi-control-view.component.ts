@@ -44,21 +44,92 @@ export class PixiControlViewComponent implements OnInit {
     // 測試
 
     const mainContainer = new PIXI.Container();
-    mainContainer.x = 256;
-    mainContainer.y = 256;
+    mainContainer.x = 300;
+    mainContainer.y = 300;
+    this.app.stage.addChild(mainContainer);
 
+    const radius = 100;
+
+    {
+      // 中間 (正)
+      const triangleContainer = await this.addOneTriangle(radius);
+      mainContainer.addChild(triangleContainer);
+    }
+
+    {
+      // 下 (反)
+      const triangleContainer = await this.addOneTriangle(radius);
+      triangleContainer.scale.x = -1;
+      triangleContainer.rotation = 180 * (Math.PI / 180);
+
+      triangleContainer.x = Math.cos(90 * (Math.PI / 180)) * radius;
+      triangleContainer.y = Math.sin(90 * (Math.PI / 180)) * radius;
+
+      mainContainer.addChild(triangleContainer);
+    }
+    {
+      // 左邊 (反)
+      const triangleContainer = await this.addOneTriangle(radius);
+      triangleContainer.scale.x = -1;
+      triangleContainer.rotation = 60 * (Math.PI / 180);
+
+      triangleContainer.x = Math.cos(210 * (Math.PI / 180)) * radius;
+      triangleContainer.y = Math.sin(210 * (Math.PI / 180)) * radius;
+
+      mainContainer.addChild(triangleContainer);
+    }
+    {
+      // 右邊 (反)
+      const triangleContainer = await this.addOneTriangle(radius);
+      triangleContainer.scale.x = -1;
+      triangleContainer.rotation = -60 * (Math.PI / 180);
+
+      triangleContainer.x = Math.cos(330 * (Math.PI / 180)) * radius;
+      triangleContainer.y = Math.sin(330 * (Math.PI / 180)) * radius;
+
+      mainContainer.addChild(triangleContainer);
+    }
+
+    // {
+    //   const triangleContainer = await this.addOneTriangle(radius);
+
+    //   triangleContainer.y = Math.sin(60 * (.5) * (Math.PI / 180)) * 300;
+
+    //   mainContainer.addChild(triangleContainer);
+    // }
+    // {
+    //   const triangleContainer = await this.addOneTriangle();
+    //   triangleContainer.scale.y = -1;
+    //   triangleContainer.y = -Math.sin(60 * (.5) * (Math.PI / 180)) * 300;
+
+    //   mainContainer.addChild(triangleContainer);
+    // }
+  }
+
+  async addOneTriangle(radius) {
     const triangleContainer = new PIXI.Container();
-    mainContainer.addChild(triangleContainer);
 
-    const radius = 530;
     const triangleMask = new PIXI.Graphics();
     triangleMask.beginFill(0xffffff, .3);
-    triangleMask.moveTo(0, 0);
-    triangleMask.lineTo(Math.cos(60 * (-.5) * (Math.PI / 180)) * radius, Math.sin(60 * (-.5) * (Math.PI / 180)) * radius);
-    triangleMask.lineTo(Math.cos(60 * (.5) * (Math.PI / 180)) * radius, Math.sin(60 * (.5) * (Math.PI / 180)) * radius);
-    triangleMask.lineTo(0, 0);
+    // triangleMask.beginFill(0x000000, .3);
+
+    triangleMask.moveTo(
+      Math.cos(30 * (Math.PI / 180)) * radius,
+      Math.sin(30 * (Math.PI / 180)) * radius,
+    );
+    triangleMask.lineTo(
+      Math.cos(150 * (Math.PI / 180)) * radius,
+      Math.sin(150 * (Math.PI / 180)) * radius,
+    );
+    triangleMask.lineTo(
+      Math.cos(270 * (Math.PI / 180)) * radius,
+      Math.sin(270 * (Math.PI / 180)) * radius,
+    );
+    triangleMask.lineTo(
+      Math.cos(30 * (Math.PI / 180)) * radius,
+      Math.sin(30 * (Math.PI / 180)) * radius,
+    );
     triangleMask.endFill();
-    // mainContainer.addChild(triangleMask);
 
     const texture = await PIXI.Texture.fromURL('https://upload.wikimedia.org/wikipedia/commons/b/bc/T_albidum01.jpg');
     const flower = new PIXI.Sprite(texture);
@@ -67,18 +138,15 @@ export class PixiControlViewComponent implements OnInit {
 
     // flower.rotation = -30 * (Math.PI / 180); // from 63 * -.5
     flower.x = 0;
-    flower.y = 0;
-    let x = 0;
+    flower.y = -20;
     this.app.ticker.add((delta) => {
       flower.rotation += 0.03 * delta;
-      x =  (x + 3 * delta) % 256;
-      flower.x = x;
     });
-    flower.scale.y = -1; // 上下顛倒
 
     triangleContainer.mask = triangleMask;
+    triangleContainer.addChild(triangleMask);
 
-    this.app.stage.addChild(mainContainer);
+    return triangleContainer;
   }
 
   // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
