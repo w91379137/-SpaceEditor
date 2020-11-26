@@ -51,59 +51,25 @@ export class PixiControlViewComponent implements OnInit {
     const radius = 100;
 
     {
-      // 中間 (正)
       const triangleContainer = await this.addOneTriangle(radius);
-      mainContainer.addChild(triangleContainer);
-    }
-
-    {
-      // 下 (反)
-      const triangleContainer = await this.addOneTriangle(radius);
-      triangleContainer.scale.x = -1;
-      triangleContainer.rotation = 180 * (Math.PI / 180);
-
-      triangleContainer.x = Math.cos(90 * (Math.PI / 180)) * radius;
-      triangleContainer.y = Math.sin(90 * (Math.PI / 180)) * radius;
-
       mainContainer.addChild(triangleContainer);
     }
     {
-      // 左邊 (反)
-      const triangleContainer = await this.addOneTriangle(radius);
-      triangleContainer.scale.x = -1;
-      triangleContainer.rotation = 60 * (Math.PI / 180);
+      for (let index = 0; index < 3; index++) {
 
-      triangleContainer.x = Math.cos(210 * (Math.PI / 180)) * radius;
-      triangleContainer.y = Math.sin(210 * (Math.PI / 180)) * radius;
+        const triangleContainer = await this.addOneTriangle(radius);
+        triangleContainer.scale.x = -1;
 
-      mainContainer.addChild(triangleContainer);
+        const thetaR = 60 + 120 * index;
+        triangleContainer.rotation = thetaR * (Math.PI / 180);
+
+        const thetaC = -150 - 120 * index;
+        triangleContainer.x = Math.cos(thetaC * (Math.PI / 180)) * radius;
+        triangleContainer.y = Math.sin(thetaC * (Math.PI / 180)) * radius;
+
+        mainContainer.addChild(triangleContainer);
+      }
     }
-    {
-      // 右邊 (反)
-      const triangleContainer = await this.addOneTriangle(radius);
-      triangleContainer.scale.x = -1;
-      triangleContainer.rotation = -60 * (Math.PI / 180);
-
-      triangleContainer.x = Math.cos(330 * (Math.PI / 180)) * radius;
-      triangleContainer.y = Math.sin(330 * (Math.PI / 180)) * radius;
-
-      mainContainer.addChild(triangleContainer);
-    }
-
-    // {
-    //   const triangleContainer = await this.addOneTriangle(radius);
-
-    //   triangleContainer.y = Math.sin(60 * (.5) * (Math.PI / 180)) * 300;
-
-    //   mainContainer.addChild(triangleContainer);
-    // }
-    // {
-    //   const triangleContainer = await this.addOneTriangle();
-    //   triangleContainer.scale.y = -1;
-    //   triangleContainer.y = -Math.sin(60 * (.5) * (Math.PI / 180)) * 300;
-
-    //   mainContainer.addChild(triangleContainer);
-    // }
   }
 
   async addOneTriangle(radius) {
