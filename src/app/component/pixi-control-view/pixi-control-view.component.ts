@@ -45,17 +45,18 @@ export class PixiControlViewComponent implements OnInit {
     // 測試
 
     const mainContainer = new PIXI.Container();
-    mainContainer.x = 300;
-    mainContainer.y = 300;
+    mainContainer.x = 400;
+    mainContainer.y = 400;
     this.app.stage.addChild(mainContainer);
 
     const radius = 100;
+    const showF = true;
 
     {
       const triangleContainer = await this.addOneTriangle(radius);
       mainContainer.addChild(triangleContainer);
     }
-    {
+    if (showF) {
       for (let index = 0; index < 3; index++) {
 
         const triangleContainer = await this.addOneTriangle(radius);
@@ -100,7 +101,7 @@ export class PixiControlViewComponent implements OnInit {
         mainContainer.addChild(triangleContainer);
       }
     }
-    {
+    if (showF) {
       // const index = 0;
       for (let index = 0; index < 3; index++) {
         const triangleContainer = await this.addOneTriangle(radius);
@@ -112,6 +113,21 @@ export class PixiControlViewComponent implements OnInit {
         const thetaC = -90 - 120 * index;
         triangleContainer.x = Math.cos(thetaC * (Math.PI / 180)) * radius * 2;
         triangleContainer.y = Math.sin(thetaC * (Math.PI / 180)) * radius * 2;
+
+        mainContainer.addChild(triangleContainer);
+      }
+    }
+    {
+      // const index = 0;
+      for (let index = 0; index < 3; index++) {
+        const triangleContainer = await this.addOneTriangle(radius);
+
+        const thetaR = 0;
+        triangleContainer.rotation = thetaR * (Math.PI / 180);
+
+        const thetaC = -90 - 120 * index;
+        triangleContainer.x = Math.cos(thetaC * (Math.PI / 180)) * radius * 3;
+        triangleContainer.y = Math.sin(thetaC * (Math.PI / 180)) * radius * 3;
 
         mainContainer.addChild(triangleContainer);
       }
@@ -154,6 +170,10 @@ export class PixiControlViewComponent implements OnInit {
     this.app.ticker.add((delta) => {
       flower.rotation += 0.02 * delta;
       const theta = Math.cos(flower.rotation);
+
+      flower.x = 10 * Math.sin(theta);
+      flower.y = -20 + 15 * Math.sin(theta * 2);
+
       const scale = 1.3 + 0.3 * Math.sin(theta);
       flower.scale.x = scale;
       flower.scale.y = scale;
