@@ -3,6 +3,7 @@ import { ControlCenterService } from 'src/app/service/control-center/control-cen
 import { PIXIControlPoint } from 'src/app/component/pixi-control-view/pixi-control-point';
 import * as PIXI from 'pixi.js';
 import { ControlPoint } from '../../service/control-center/control-point';
+import { single } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pixi-control-view',
@@ -99,6 +100,22 @@ export class PixiControlViewComponent implements OnInit {
         mainContainer.addChild(triangleContainer);
       }
     }
+    {
+      // const index = 0;
+      for (let index = 0; index < 3; index++) {
+        const triangleContainer = await this.addOneTriangle(radius);
+        triangleContainer.scale.x = -1;
+
+        const thetaR = 180 + 120 * index;
+        triangleContainer.rotation = thetaR * (Math.PI / 180);
+
+        const thetaC = -90 - 120 * index;
+        triangleContainer.x = Math.cos(thetaC * (Math.PI / 180)) * radius * 2;
+        triangleContainer.y = Math.sin(thetaC * (Math.PI / 180)) * radius * 2;
+
+        mainContainer.addChild(triangleContainer);
+      }
+    }
   }
 
   async addOneTriangle(radius) {
@@ -135,7 +152,11 @@ export class PixiControlViewComponent implements OnInit {
     flower.x = 0;
     flower.y = -20;
     this.app.ticker.add((delta) => {
-      flower.rotation += 0.03 * delta;
+      flower.rotation += 0.02 * delta;
+      const theta = Math.cos(flower.rotation);
+      const scale = 1.3 + 0.3 * Math.sin(theta);
+      flower.scale.x = scale;
+      flower.scale.y = scale;
     });
 
     triangleContainer.mask = triangleMask;
